@@ -10,6 +10,18 @@
 
 import urllib.request
 import json
-with urllib.request.urlopen('https://randomuser.me/api/') as rand_user_api:
+
+
+def show_info(*infos):
+    for info in infos:
+        print(info)
+
+
+with urllib.request.urlopen('https://randomuser.me/api/?=1') as rand_user_api:
     users = json.loads(rand_user_api.read().decode())
-    print(users)
+    user = users['results'][0]
+    gender = user['gender']
+    name = user['name']['first'] + ' ' + \
+        users['results'][0]['name']['last']
+    city = user['location']['city']
+    show_info(name, gender, city)

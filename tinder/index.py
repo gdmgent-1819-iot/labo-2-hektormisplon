@@ -14,10 +14,16 @@ def get_user():
         users = json.loads(rand_user_api.read().decode())
         return users['results'][0]
 
+def write_to_file(user):
+    with open('data.json', 'w') as outfile:
+        json.dump(user, outfile)
+        
 def get_info(user):
     name = user['name']['first'] + ' ' + user['name']['last']
     gender = user['gender']
     city = user['location']['city']
     show_info(name, gender, city)
+    write_to_file(user)
+
 
 get_info(get_user())
